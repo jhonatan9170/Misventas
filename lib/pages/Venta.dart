@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mis_ventas/FinishVenta.dart';
+import 'package:mis_ventas/Models/Cliente.dart';
 import 'package:mis_ventas/ProductComponent.dart';
 import 'package:mis_ventas/pages/ClientsSearch.dart';
 import 'package:mis_ventas/pages/productSearch.dart';
 import 'package:mis_ventas/provider/Ventasprov.dart';
 import 'package:provider/provider.dart';
 
-class Ventas extends StatelessWidget {
+class Venta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ventas = Provider.of<Ventasprov>(context);
@@ -55,41 +56,21 @@ class Ventas extends StatelessWidget {
           child:
             Column(
             children: [
-              ventas.getCLiente().urlImage=="" ?
-              ListTile(
-                minVerticalPadding: 10.0,
-                tileColor: Color(0xfff6f5f5),
-                title: Center(child: Text("Añadir cliente")),
-                trailing: IconButton(
-                  onPressed: (){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context)=>ClientsSearch())
-                    );
 
-                  },
-                    icon:Icon(Icons.add_circle_outlined,color: Colors.green,size: 30.0,)),
-              ):
               ListTile(
-                onLongPress: (){
+                onTap: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context)=>ClientsSearch())
+                      MaterialPageRoute(builder: (context)=>ClientsSearch(false))
                   );
                 },
                 minVerticalPadding: 10.0,
                 tileColor: Color(0xfff6f5f5),
-                title: Center(child: Text(ventas.getCLiente().nombreCompleto)),
-                leading: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minWidth: 44,
-                    minHeight: 44,
-                    maxWidth: 64,
-                    maxHeight: 64,
-                  ),
-                  child: Image.network(ventas.getCLiente().urlImage, fit: BoxFit.cover),
-                ),
+                title: Text(ventas.getCLiente().nombreCompleto),
+                leading: CircleAvatar(child: Text(ventas.getCLiente().nombreCompleto.substring(0,1))),
+                trailing:IconButton(icon: Icon(Icons.remove_circle,color: Colors.red,), onPressed: (){
+                  ventas.cliente=Cliente(10,"Varios","","","","","","","","","","","");
+                }),
               )
-
-
               ,
               ListTile(
                 minVerticalPadding: 10.0,

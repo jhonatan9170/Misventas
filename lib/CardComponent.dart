@@ -31,7 +31,21 @@ class _CardComponentState extends State<CardComponent> {
       child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(child:Image.network(widget._product.url)),
+          Expanded(child:GestureDetector(
+            onTap: (){
+              showDialog(
+                  useSafeArea: false,
+                  context: context,
+                  builder: (_)=> GestureDetector(
+                      onVerticalDragUpdate: (dragUpdateDetails) {
+                        Navigator.of(context).pop();
+                      },
+                      child: Image.network(widget._product.url)
+                  )
+              );
+            },
+              child: Image.network(widget._product.url)
+          )),
           Text(widget._product.productName,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Stock :'),Text('${widget._product.stock}')]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Precio :'),Text('${widget._product.preciounit}')]),

@@ -9,7 +9,7 @@ class ClientSearchProv with ChangeNotifier {
     this._name=name;
     notifyListeners();
   }
-  Future<List<Cliente>> getClients() async {
+  Future<List<Cliente>> getClients(String estado) async {
 
     var url = Uri.parse('https://misventas.azurewebsites.net/api/personList?tipoListado=cliente&nombre=$_name');
     var response = await get(url);
@@ -20,12 +20,24 @@ class ClientSearchProv with ChangeNotifier {
       String body = utf8.decode(response.bodyBytes);
       final jsonData = jsonDecode(body);
       for (var item in jsonData) {
-         String name = item["nombres"];
-         String apeMaterno = item["apeMaterno"];
-         String apePaterno = item["apePaterno"];
-        clients.add(Cliente(item["idPersona"],item["urlImagen"],'$name $apePaterno $apeMaterno'));
+        if(estado==item["estado"]){
+        if(item["tipoPersona"]=='N'){
+          clients.add(Cliente(item["idPersona"],item["nombreCompleto"],item["apePaterno"],item["apeMaterno"],item["nombres"],'N','','',item["telFIjo"],item["celular"],item["dni"],'',item["estado"]));
+        }else{
+          clients.add(Cliente(item["idPersona"],item["nombreComercial"],'','','','J',item["razonSocial"],item["nombreComercial"],item["telFIjo"],item["celular"],'',item["ruc"],item["estado"]));
+        }
+        }
+        if (estado!='A'&&estado!='I'){
+          if(item["tipoPersona"]=='N'){
+            clients.add(Cliente(item["idPersona"],item["nombreCompleto"],item["apePaterno"],item["apeMaterno"],item["nombres"],'N','','',item["telFIjo"],item["celular"],item["dni"],'',item["estado"]));
+          }else{
+            clients.add(Cliente(item["idPersona"],item["nombreComercial"],'','','','J',item["razonSocial"],item["nombreComercial"],item["telFIjo"],item["celular"],'',item["ruc"],item["estado"]));
+          }
+        }
+
+
+
       }
-      print(clients[1].nombreCompleto);
       return clients;
     } else {
       throw Exception("Falló la conexión");

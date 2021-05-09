@@ -4,7 +4,7 @@ import 'package:mis_ventas/Models/Product.dart';
 
 
 class Ventasprov with ChangeNotifier{
-  Cliente _cliente = Cliente(0,"","");
+  Cliente _cliente = Cliente(10,"Varios","","","","","","","","","","","");
   List<Product> _productList=[];
   double _pago =0.0;
   Cliente getCLiente(){
@@ -38,6 +38,9 @@ class Ventasprov with ChangeNotifier{
   set pago (double pago){
     this._pago=pago;
     notifyListeners();
+  }
+  double getPago(){
+  return _pago;
   }
   void addCantidad(Product product)
   {
@@ -74,7 +77,7 @@ class Ventasprov with ChangeNotifier{
   }
 
   String getVuelto(){
-    if (_pago==0.0) {
+    if (_pago<getTotal()) {
       return "";
     }else{
         return (_pago-getTotal()).toString();
@@ -92,4 +95,11 @@ class Ventasprov with ChangeNotifier{
     return isRepeat;
 
   }
+
+  void setEmpty(){
+    _cliente = Cliente(10,"Varios","","","","","","","","","","","");
+    _productList=[];
+    _pago =0.0;
+  }
+
 }

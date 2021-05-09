@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mis_ventas/SearchForm.dart';
-
-
+import 'package:mis_ventas/SearchFormProduct.dart';
 import '../TableComponent.dart';
 
 
@@ -23,7 +21,7 @@ class productSearch extends StatelessWidget {
               padding: EdgeInsets.all(MediaQuery.of(context).size.height*0.01),
                 margin: EdgeInsets.all(10.0),
                 //height: MediaQuery.of(context).size.height*0.1,
-                child: SearchForm()),
+                child: SearchFormProduct()),
             Expanded(
               child: TableComponent(),
             )

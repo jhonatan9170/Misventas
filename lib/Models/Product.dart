@@ -6,7 +6,9 @@ class Product{
   int cantidad;
   double preciounit;
   double preciofinal;
-  double descuento;
 
-  Product(this.id,this.url,this.productName,this.stock,this.cantidad,this.preciounit,this.preciofinal,this.descuento);
+  Product(this.id,this.url,this.productName,this.stock,this.cantidad,this.preciounit,this.preciofinal);
+  double getDescuento(){
+    return preciounit-preciofinal;
+  }
 }

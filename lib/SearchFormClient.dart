@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'provider/ClientSearchProv.dart';
 
-import 'provider/BusquedaProv.dart';
-
-class SearchForm extends StatefulWidget {
+class SearchFormClient extends StatefulWidget {
   @override
-  _SearchFormState createState() => _SearchFormState();
+  _SearchFormClientState createState() => _SearchFormClientState();
 }
 
-class _SearchFormState extends State<SearchForm> {
+class _SearchFormClientState extends State<SearchFormClient> {
   @override
   Widget build(BuildContext context) {
-    final busqueda = Provider.of<BusquedaProv>(context);
+    final clientSearch = Provider.of<ClientSearchProv>(context);
     return TextField(
-      onChanged: (input)=>busqueda.name=input,
+      onChanged: (input)=>clientSearch.name=input,
       textAlign: TextAlign.center,
       decoration: new InputDecoration(
         labelText: "Busqueda",
