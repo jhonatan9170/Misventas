@@ -4,7 +4,7 @@ class VentaModel {
    double subTotal;
    double descuento;
    double monto;
-   dynamic fecha;
+   String fecha;
    VentaModel(this.id,this.nombreUsuario,this.subTotal,this.descuento,this.monto,this.fecha);
 
 

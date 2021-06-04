@@ -16,37 +16,42 @@ class Venta extends StatelessWidget {
     return Scaffold(
 
       bottomSheet: Container(
-        alignment: Alignment.center,
-        height: 100.0,
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(5.0),
         margin: EdgeInsets.all(5.0),
-        decoration: BoxDecoration(
-            color: Color(0xFF80d6ff),
-            borderRadius: BorderRadius.circular(15.0)
-
-        ),
-        child: Stack(
+        color: Colors.white,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [Text("SubTotal   ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0)),Text("S/"+ventas.getSubtotal().toString(),style: TextStyle(fontSize: 18.0))],),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [Text("Descuento   ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0)),Text("S/"+ventas.getDescuento().toString(),style: TextStyle(fontSize: 18.0))],),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [Text("Total   ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0)),Text("S/"+ventas.getTotal().toString(),style: TextStyle(fontSize: 18.0))],),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [Text("SubTotal   ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0)),Text("S/"+ventas.getSubtotal().toString(),style: TextStyle(fontSize: 15.0))],),
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [Text("Descuento   ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0)),Text("S/"+ventas.getDescuento().toString(),style: TextStyle(fontSize: 15.0))],),
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [Text("Total   ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0)),Text("S/"+ventas.getTotal().toString(),style: TextStyle(fontSize: 15.0))],),
+              ],
+              ),
+                Spacer(),
+                Container( margin: EdgeInsets.only(right: 20.0), alignment: Alignment.centerRight, child: ElevatedButton(child: Text("PROCEDER"),
+                  style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 30.0,vertical: 20.0))),
+                  onPressed: (){
+
+                  showModalBottomSheet(shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
+                      isScrollControlled: true,context: context, builder: (BuildContext bc){
+                    return FinishVenta();
+                  });
+                  },)),
+              ]
+            ),
           ],
-          ),
-            Container( margin: EdgeInsets.only(right: 20.0), alignment: Alignment.centerRight, child: ElevatedButton(child: Text("PROCEDER"),
-              style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 30.0,vertical: 20.0))),
-              onPressed: (){
-              showModalBottomSheet(shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
-                  isScrollControlled: true,context: context, builder: (BuildContext bc){
-                return FinishVenta();
-              });
-              },)),
-          ]
-        ),)
+        ),
+      )
       ,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: Center(child: Text("Nueva Venta"))),
@@ -60,7 +65,7 @@ class Venta extends StatelessWidget {
               ListTile(
                 onTap: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context)=>ClientsSearch(false))
+                      MaterialPageRoute(builder: (context)=>ClientsSearch())
                   );
                 },
                 minVerticalPadding: 10.0,
@@ -68,7 +73,7 @@ class Venta extends StatelessWidget {
                 title: Text(ventas.getCLiente().nombreCompleto),
                 leading: CircleAvatar(child: Text(ventas.getCLiente().nombreCompleto.substring(0,1))),
                 trailing:IconButton(icon: Icon(Icons.remove_circle,color: Colors.red,), onPressed: (){
-                  ventas.cliente=Cliente(10,"Varios","","","","","","","","","","","");
+                  ventas.cliente=Persona(62,"Varios","","","","","","","","","","");
                 }),
               )
               ,

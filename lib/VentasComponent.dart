@@ -6,6 +6,7 @@ import 'package:mis_ventas/provider/DetalleVentaProv.dart';
 import 'package:mis_ventas/provider/VentasListProv.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class VentasComponent extends StatelessWidget {
@@ -113,7 +114,7 @@ class VentasComponent extends StatelessWidget {
                                             Navigator.of(context).popUntil((_) => count++ >= 2);
                                             ventasList.name="";
                                             Fluttertoast.showToast(
-                                                msg: "Producto eliminado",
+                                                msg: "Venta eliminado",
                                                 toastLength: Toast.LENGTH_LONG,
                                                 gravity: ToastGravity.BOTTOM,
                                                 timeInSecForIosWeb: 1,
@@ -139,7 +140,7 @@ class VentasComponent extends StatelessWidget {
                   minVerticalPadding: 10.0,
                   tileColor: Color(0xfff6f5f5),
                   title: Text(venta.nombreUsuario),
-                  subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text("26/04/2020 16:45"),Text("Ndocumento : S/N")]),
+                  subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(venta.fecha),Text("Ndocumento : S/N")]),
                   leading: CircleAvatar(child: Text(venta.nombreUsuario.substring(0,1))),
                   trailing: Text("S/"+venta.monto.toString(),style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),),
     )
@@ -155,9 +156,14 @@ class VentasComponent extends StatelessWidget {
 
   }
   Future  ELiminar(int id) async{
-
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    int idEmpresa = sharedPreferences.getInt('idEmpresa');
+    String usuario =sharedPreferences.getString("usuario");
     var body = {
       'idVenta' : id,
+      'estado' :'I',
+      'usuario' :usuario,
+      'idEmpresa':idEmpresa
     };
     print(body);
     Map<String, String> headers = {"Content-type": "application/json"};

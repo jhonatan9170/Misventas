@@ -25,6 +25,6 @@ class _SearchFormProductState extends State<SearchFormProduct> {
       style: new TextStyle(
         fontFamily: "Poppins",
       ),
-    );;
+    );
   }
 }

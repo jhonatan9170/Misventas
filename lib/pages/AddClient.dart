@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mis_ventas/provider/AddClientProv.dart';
+import 'package:mis_ventas/provider/ClientSearchProv.dart';
 import 'package:provider/provider.dart';
 
 class AddClient extends StatefulWidget {
@@ -16,6 +18,7 @@ class _AddClientState extends State<AddClient> {
   @override
   Widget build(BuildContext context) {
     final client = Provider.of<AddClientProv>(context);
+    final clientes = Provider.of<ClientSearchProv>(context);
     Widget NaturalForm(){
       return Column(
         children: [
@@ -24,7 +27,7 @@ class _AddClientState extends State<AddClient> {
             child: TextField(
               textAlign: TextAlign.center,
               decoration: new InputDecoration(
-                labelText: "Apellido Paterno",
+                labelText: "Apellidos",
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(10.0),
@@ -32,25 +35,7 @@ class _AddClientState extends State<AddClient> {
                 //fillColor: Colors.green
               ),
               onChanged: (input){
-                client.apePaterno=input;
-              },
-            ),
-
-          ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: TextField(
-              textAlign: TextAlign.center,
-              decoration: new InputDecoration(
-                labelText: "Apellido Materno",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
-                //fillColor: Colors.green
-              ),
-              onChanged: (input){
-                client.apeMaterno=input;
+                client.apellidos=input;
               },
             ),
 
@@ -261,6 +246,7 @@ class _AddClientState extends State<AddClient> {
                 style: new TextStyle(
                   fontFamily: "Poppins",
                 ),
+                keyboardType: TextInputType.number,
                 onChanged: (input){
                   client.celular=input;
                 },
@@ -276,9 +262,35 @@ class _AddClientState extends State<AddClient> {
               ),
               onPressed: () {
                 if(esProveedor){
-                  client.sendData('AMBOS');
+                  client.sendData('AMBOS').then((value)  {
+                    clientes.name="";
+                    Navigator.of(context).pop();
+                    Fluttertoast.showToast(
+                        msg: "Cliente añadido",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
+
+                  });
                 }else{
-                  client.sendData('CLIENTE');
+                  client.sendData('CLIENTE').then((value) {
+                    clientes.name="";
+                    Navigator.of(context).pop();
+                    Fluttertoast.showToast(
+                        msg: "Cliente añadido",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
+
+                  } );
                 }
 
               },

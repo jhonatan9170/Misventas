@@ -8,7 +8,6 @@ class VentasHis extends StatelessWidget {
 
     return Scaffold(
       body: VentasComponent(),
-
       floatingActionButton: FloatingActionButton(child: Icon(Icons.add),
       onPressed: (){
         Navigator.push(context,

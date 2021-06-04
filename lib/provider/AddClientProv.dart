@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AddClientProv with ChangeNotifier {
-
-  String apePaterno = "";
-  String apeMaterno = "";
+  SharedPreferences sharedPreferences;
+  String apellidos = "";
   String nombres = "";
   String modelo = "";
   String tipoPersona = "N";
@@ -16,17 +16,19 @@ class AddClientProv with ChangeNotifier {
   String celular = "";
   String ruc = "";
   int dni = 0;
-  String usuario = "JCHAVEZ";
 
 
   Future sendData(String condicion) async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    int idEmpresa = sharedPreferences.getInt('idEmpresa');
+    String usuario =sharedPreferences.getString("usuario");
+
       var url = Uri.parse('https://misventas.azurewebsites.net/api/personList');
       var body = {
         "condicion" : condicion,
-        "apePaterno" : apePaterno,
-        "apeMaterno" : apeMaterno,
-        "nombres" :nombres,
-        "nombreCompleto": "$apePaterno $apeMaterno $nombres",
+        "apellidos" : apellidos.toUpperCase(),
+        "nombres" :nombres.toUpperCase(),
+        "nombreCompleto": "$apellidos ,$nombres".toUpperCase(),
         "tipoPersona" :tipoPersona,
         "razonSocial":	razonSocial,
         "nombreComercial": nombreComercial,
@@ -34,7 +36,8 @@ class AddClientProv with ChangeNotifier {
         "celular" :celular,
         "dni" : dni,
         "ruc" : ruc,
-        "usuario" : usuario
+        "usuario" : usuario,
+        "idEmpresa" :idEmpresa
 
       };
       print(body);
@@ -52,8 +55,7 @@ class AddClientProv with ChangeNotifier {
     ruc="";
   }
   void esJuridica(){
-    apePaterno="";
-    apeMaterno="";
+    apellidos = "";
     nombres="";
     tipoPersona="J";
     dni=0;

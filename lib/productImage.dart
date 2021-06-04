@@ -25,6 +25,7 @@ class _productImageState extends State<productImage> {
     void _openCamera() async {
       PickedFile picture = await imagePicker.getImage(
         source: ImageSource.camera,
+        imageQuality: 50
       );
       Navigator.pop(context);
       setState(() {
@@ -35,6 +36,7 @@ class _productImageState extends State<productImage> {
     void _openGallery() async {
       PickedFile picture = await imagePicker.getImage(
         source: ImageSource.gallery,
+        imageQuality: 50
       );
       setState(() {
         image=(picture);
@@ -48,24 +50,23 @@ class _productImageState extends State<productImage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    GestureDetector(
-                      child: Text('Cámara'),
-                      onTap: _openCamera,
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    child: Text('Cámara'),
+                    onTap: _openCamera,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                  ),
+                  GestureDetector(
+                    child: Text('Galería'),
+                    onTap: _openGallery,
 
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                    ),
-                    GestureDetector(
-                      child: Text('Galería'),
-                      onTap: _openGallery,
-
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           });
