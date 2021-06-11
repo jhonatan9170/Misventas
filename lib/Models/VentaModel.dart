@@ -5,7 +5,9 @@ class VentaModel {
    double descuento;
    double monto;
    String fecha;
-   VentaModel(this.id,this.nombreUsuario,this.subTotal,this.descuento,this.monto,this.fecha);
+   String documento;
+   String numDocumento;
+   VentaModel(this.id,this.nombreUsuario,this.subTotal,this.descuento,this.monto,this.fecha,this.documento,this.numDocumento);
 
 
 }

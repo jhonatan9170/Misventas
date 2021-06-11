@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mis_ventas/FinishVenta.dart';
-import 'package:mis_ventas/Models/Cliente.dart';
+import 'package:mis_ventas/Models/Persona.dart';
 import 'package:mis_ventas/ProductComponent.dart';
 import 'package:mis_ventas/pages/ClientsSearch.dart';
 import 'package:mis_ventas/pages/productSearch.dart';
@@ -84,7 +84,7 @@ class Venta extends StatelessWidget {
                 trailing: IconButton(
                   onPressed: (){
                   Navigator.push(context,
-                  MaterialPageRoute(builder: (context)=>productSearch())
+                  MaterialPageRoute(builder: (context)=>productSearch(true))
                   );
                   },
                     icon:Icon(Icons.add_circle_outlined,color: Colors.green,size: 30.0,)),

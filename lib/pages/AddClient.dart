@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mis_ventas/provider/AddClientProv.dart';
+import 'package:mis_ventas/provider/AddPersonProv.dart';
 import 'package:mis_ventas/provider/ClientSearchProv.dart';
 import 'package:provider/provider.dart';
 
@@ -13,11 +13,12 @@ class AddClient extends StatefulWidget {
 }
 
 class _AddClientState extends State<AddClient> {
+  bool press = false;
   String _chosenValue='NATURAL';
   bool esProveedor=false;
   @override
   Widget build(BuildContext context) {
-    final client = Provider.of<AddClientProv>(context);
+    final client = Provider.of<AddPersonaProv>(context);
     final clientes = Provider.of<ClientSearchProv>(context);
     Widget NaturalForm(){
       return Column(
@@ -73,18 +74,11 @@ class _AddClientState extends State<AddClient> {
               ),
               keyboardType: TextInputType.number,
               onChanged: (input){
-               if(input!=null){
-                 client.dni=int.parse(input);
-               }else{
-                 client.dni=0;
-               }
+                 client.dni=input;
               },
             ),
-
           ),
-
-
-        ],
+       ],
       );
     }
 
@@ -153,7 +147,6 @@ class _AddClientState extends State<AddClient> {
         ],
       );
     }
-
 
     return Scaffold(
       body: Container(
@@ -260,9 +253,12 @@ class _AddClientState extends State<AddClient> {
                   ),
                 ),
               ),
-              onPressed: () {
+              onPressed: press ? null :  () {
+                setState(()=> press =true);
                 if(esProveedor){
                   client.sendData('AMBOS').then((value)  {
+                    client.clear();
+                    setState(()=> press =false);
                     clientes.name="";
                     Navigator.of(context).pop();
                     Fluttertoast.showToast(
@@ -278,6 +274,8 @@ class _AddClientState extends State<AddClient> {
                   });
                 }else{
                   client.sendData('CLIENTE').then((value) {
+                    client.clear();
+                    setState(()=> press =false);
                     clientes.name="";
                     Navigator.of(context).pop();
                     Fluttertoast.showToast(

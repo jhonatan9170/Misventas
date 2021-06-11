@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mis_ventas/Login/RegisterProv.dart';
 import 'package:mis_ventas/pages/ClientList.dart';
-import 'package:mis_ventas/pages/Compras.dart';
 import 'package:mis_ventas/pages/ComprasList.dart';
 import 'package:mis_ventas/pages/ListProduct.dart';
+import 'package:mis_ventas/pages/ProveedorList.dart';
 import 'package:mis_ventas/pages/VentasHis.dart';
-import 'package:mis_ventas/provider/AddClientProv.dart';
+import 'package:mis_ventas/provider/AddPersonProv.dart';
 import 'package:mis_ventas/provider/AddProducProv.dart';
 import 'package:mis_ventas/provider/BusquedaProv.dart';
+import 'package:mis_ventas/provider/ComprasListProv.dart';
+import 'package:mis_ventas/provider/DetalleComprasProv.dart';
 import 'package:mis_ventas/provider/DetalleVentaProv.dart';
+import 'package:mis_ventas/provider/ProveedorSearchProv.dart';
 import 'package:mis_ventas/provider/VentasListProv.dart';
 import 'package:mis_ventas/provider/Ventasprov.dart';
 import 'package:provider/provider.dart';
@@ -45,10 +48,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ClientSearchProv>(create: (_)=>ClientSearchProv(),),
         ChangeNotifierProvider<VentasListProv>(create: (_)=>VentasListProv(),),
         ChangeNotifierProvider<DetalleVentaProv>(create: (_)=>DetalleVentaProv(),),
+        ChangeNotifierProvider<DetalleComprasProv>(create: (_)=>DetalleComprasProv(),),
+        ChangeNotifierProvider<ComprasListProv>(create: (_)=>ComprasListProv(),),
         ChangeNotifierProvider<AddProductProv>(create: (_)=>AddProductProv(),),
-        ChangeNotifierProvider<AddClientProv>(create: (_)=>AddClientProv(),),
+        ChangeNotifierProvider<AddPersonaProv>(create: (_)=>AddPersonaProv(),),
         ChangeNotifierProvider<Comprasprov>(create: (_)=>Comprasprov(),),
-
+        ChangeNotifierProvider<ProveedorSearchProv>(create: (_)=>ProveedorSearchProv(),),
 
 
 
@@ -89,7 +94,8 @@ class HomePage extends StatefulWidget {
     new DrawerItem("Ventas", Icons.point_of_sale_sharp),
     new DrawerItem("Productos", Icons.add_business),
     new DrawerItem("Clientes", Icons.people_alt_rounded),
-    new DrawerItem("Compras", Icons.wallet_travel_sharp)
+    new DrawerItem("Compras", Icons.wallet_travel_sharp),
+    new DrawerItem("Proveedores", Icons.people)
   ];
 
   @override
@@ -113,6 +119,8 @@ class HomePageState extends State<HomePage> {
         return ClientList();
       case 3:
         return ComprasList();
+      case 4:
+        return ProveedorList();
       default:
         return new Text("Error");
     }

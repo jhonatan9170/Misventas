@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class AddClientProv with ChangeNotifier {
+class AddPersonaProv with ChangeNotifier {
   SharedPreferences sharedPreferences;
   String apellidos = "";
   String nombres = "";
@@ -15,7 +15,7 @@ class AddClientProv with ChangeNotifier {
   String telFijo = "";
   String celular = "";
   String ruc = "";
-  int dni = 0;
+  String dni = "";
 
 
   Future sendData(String condicion) async {
@@ -58,8 +58,20 @@ class AddClientProv with ChangeNotifier {
     apellidos = "";
     nombres="";
     tipoPersona="J";
-    dni=0;
+    dni="";
 
+  }
+  void clear(){
+    apellidos = "";
+    nombres = "";
+    modelo = "";
+    tipoPersona = "N";
+    razonSocial = "";
+    nombreComercial = "";
+    telFijo = "";
+    celular = "";
+    ruc = "";
+    dni = "";
   }
 
 

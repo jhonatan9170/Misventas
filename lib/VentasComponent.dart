@@ -23,7 +23,7 @@ class VentasComponent extends StatelessWidget {
           return ListView(children: data.map((venta) =>
               Card( margin: EdgeInsets.all(5.0),
                 child: ListTile(
-                  onLongPress: (){}, onTap: (){
+                  onTap: (){
                     products.idVenta=venta.id;
                     showModalBottomSheet(shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
@@ -36,7 +36,7 @@ class VentasComponent extends StatelessWidget {
                             children: [
 
                               Container(
-                                padding: EdgeInsets.symmetric(vertical: 8.0), child: Row(children: [Icon(Icons.file_copy_rounded,color: Colors.purple,),Text("  Documento S/N")],)
+                                padding: EdgeInsets.symmetric(vertical: 8.0), child: Row(children: [Icon(Icons.file_copy_rounded,color: Colors.purple,),Text("  "+venta.documento+ " : " +venta.numDocumento)],)
                               ),
                               Container(
                                   margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -140,12 +140,11 @@ class VentasComponent extends StatelessWidget {
                   minVerticalPadding: 10.0,
                   tileColor: Color(0xfff6f5f5),
                   title: Text(venta.nombreUsuario),
-                  subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(venta.fecha),Text("Ndocumento : S/N")]),
+                  subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(venta.fecha),Text(venta.documento+ " : " +venta.numDocumento)]),
                   leading: CircleAvatar(child: Text(venta.nombreUsuario.substring(0,1))),
                   trailing: Text("S/"+venta.monto.toString(),style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),),
-    )
-
-    ).toList());
+              )
+          ).toList());
         }else if (snapshot.hasError) {
           print(snapshot.error);
           return Text("Error");}

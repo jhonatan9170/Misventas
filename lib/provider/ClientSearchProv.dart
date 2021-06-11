@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Models/Cliente.dart';
+import '../Models/Persona.dart';
 
 class ClientSearchProv with ChangeNotifier {
   SharedPreferences sharedPreferences;
@@ -15,6 +15,7 @@ class ClientSearchProv with ChangeNotifier {
     sharedPreferences = await SharedPreferences.getInstance();
     int idEmpresa = sharedPreferences.getInt('idEmpresa');
     var url = Uri.parse('https://misventas.azurewebsites.net/api/personList?tipoListado=cliente&nombre=$_name&idEmpresa=$idEmpresa');
+
     var response = await get(url);
 
     List<Persona> clients = [];
@@ -38,7 +39,8 @@ class ClientSearchProv with ChangeNotifier {
           }
         }
       }
-      _name="";
+      clients.sort((a, b) => a.nombreCompleto.compareTo(b.nombreCompleto));
+
       return clients;
     } else {
       throw Exception("Falló la conexión");

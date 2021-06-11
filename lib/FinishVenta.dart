@@ -57,8 +57,8 @@ class _FinishVentaState extends State<FinishVenta> {
       var url = Uri.parse('https://misventas.azurewebsites.net/api/ventas');
       var response = await http.post(url,headers: headers , body: jsonEncode(body));
       print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
-      print(body);
+  /*    print('Response body: ${response.body}');
+      print(body);*/
     }
 
     return Container(
@@ -172,7 +172,7 @@ class _FinishVentaState extends State<FinishVenta> {
 
             }else{
               Fluttertoast.showToast(
-                  msg: "Error en el pago",
+                  msg: "Error en la Compra",
                   toastLength: Toast.LENGTH_LONG,
                   gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 1,

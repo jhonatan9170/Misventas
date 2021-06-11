@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mis_ventas/Models/Product.dart';
+import 'package:mis_ventas/provider/ComprasProv.dart';
 import 'package:mis_ventas/provider/Ventasprov.dart';
 import 'package:provider/provider.dart';
 
 class CardComponent extends StatefulWidget {
   Product _product;
-  CardComponent(this._product);
+  bool _isVenta;
+  CardComponent(this._product,this._isVenta);
 
   @override
   _CardComponentState createState() => _CardComponentState();
@@ -16,6 +18,7 @@ class _CardComponentState extends State<CardComponent> {
   @override
   Widget build(BuildContext context) {
     final venta = Provider.of<Ventasprov>(context);
+    final compra = Provider.of<Comprasprov>(context);
     return Card(
       child: Column(
         children: [
@@ -60,7 +63,7 @@ class _CardComponentState extends State<CardComponent> {
                     children: [
                       Text(widget._product.productName,style:TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0)),
                       Text('Stock :'+widget._product.stock.toString(),style:TextStyle(fontSize: 18.0)),
-                      Text('Precio :'+widget._product.preciounit.toString(),style:TextStyle(fontSize: 18.0)),
+                      widget._isVenta ? Text('Precio :'+widget._product.preciounit.toString(),style:TextStyle(fontSize: 18.0)) : Text('Costo :'+widget._product.precioCosto.toString(),style:TextStyle(fontSize: 18.0)) ,
                     ],
                   )),
             ]
@@ -105,22 +108,27 @@ class _CardComponentState extends State<CardComponent> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
-
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
-                            side: BorderSide(color: venta.isAdded(widget._product) ? Colors.red: Colors.black)
+                            side:widget._isVenta ? BorderSide(color: venta.isAdded(widget._product) ? Colors.red: Colors.black):
+                            BorderSide(color: compra.isAdded(widget._product) ? Colors.red: Colors.black)
                         ),
-                        onPressed: () {
+                        onPressed: widget._isVenta ?
+                            () {
                           if(venta.isAdded(widget._product)){
                             venta.remove(widget._product);
-                          }else{
-                            venta.add(widget._product);
-                          }
-
-                        },
+                          }else{venta.add(widget._product);}
+                        }:
+                            () {
+                          if(compra.isAdded(widget._product)){
+                            compra.remove(widget._product);
+                          }else{compra.add(widget._product);}
+                        }
+                        ,
                         padding: EdgeInsets.all(5.0),
                         color: Colors.white,
-                        child: Text(venta.isAdded(widget._product) ? 'QUITAR' : 'AGREGAR',style: TextStyle(color: venta.isAdded(widget._product) ? Colors.red: Colors.black),),
+                        child: widget._isVenta ? Text(venta.isAdded(widget._product) ? 'QUITAR' : 'AGREGAR',style: TextStyle(color: venta.isAdded(widget._product) ? Colors.red: Colors.black),):
+                        Text(compra.isAdded(widget._product) ? 'QUITAR' : 'AGREGAR',style: TextStyle(color: compra.isAdded(widget._product) ? Colors.red: Colors.black),),
                       ),
                     )),
               ]

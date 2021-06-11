@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mis_ventas/Models/Cliente.dart';
+import 'package:mis_ventas/Models/Persona.dart';
 import 'package:mis_ventas/Models/Product.dart';
 
 

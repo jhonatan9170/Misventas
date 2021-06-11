@@ -171,7 +171,7 @@ class ClientCard extends StatelessWidget {
                     },
                     minVerticalPadding: 10.0,
                     tileColor: Color(0xfff6f5f5),
-                    title: Text(client.nombreCompleto), subtitle: _isGeneral ? (client.estado=='A' ? Text("Activo",style: TextStyle(color: Colors.green),):Text("Inactivo",style: TextStyle(color: Colors.red))) : Column(),
+                    title: Text(client.nombreCompleto), subtitle: _isGeneral ? (client.estado=='A' ? Text("Activo",style: TextStyle(color: Colors.green),):Text("Inactivo",style: TextStyle(color: Colors.red))) : null,
                     leading: CircleAvatar(
                       child: Text(client.nombreCompleto.substring(0,1)),
                     )

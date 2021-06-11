@@ -7,7 +7,8 @@ import '../CardComponent.dart';
 
 
 class productSearch extends StatelessWidget {
-
+  bool isVenta ;
+  productSearch(this.isVenta);
   @override
   Widget build(BuildContext context) {
     final busqueda = Provider.of<BusquedaProv>(context);
@@ -30,7 +31,7 @@ class productSearch extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List data = snapshot.data;
-                    return ListView(children: data.map((prod) => CardComponent(prod)).toList());
+                    return ListView(children: data.map((prod) => CardComponent(prod,isVenta)).toList());
                   } else if (snapshot.hasError) {
                     print(snapshot.error);
                     return Text("Error");}

@@ -28,6 +28,7 @@ class BusquedaProv with ChangeNotifier {
       _name="";
       return products;
     } else {
+      _name="";
       throw Exception("Falló la conexión");
     }
 
